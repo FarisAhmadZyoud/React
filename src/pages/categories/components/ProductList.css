@@ -1,0 +1,10 @@
+.product {
+    width: 250px; /* Adjust this width as needed */
+    margin: 10px; /* Add spacing between products */
+  }
+  
+  .product-image {
+    width: 100%; /* Make the image fill its container */
+    height: auto; /* Maintain aspect ratio */
+  }
+  
