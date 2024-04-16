@@ -1,8 +1,10 @@
 import React from 'react';
-
+import styles from './Footer.module.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 function Footer() {
   return (
-    <footer className="bg-info py-5">
+    <div className={styles.footerclass}>
+    <footer className="bg-info py-5 mt-2">
       <div className="container">
         <div className="row">
           <div className="col-md-8">
@@ -25,6 +27,7 @@ function Footer() {
         </div>
       </div>
     </footer>
+    </div>
   );
 }
 

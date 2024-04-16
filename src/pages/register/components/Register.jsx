@@ -102,7 +102,7 @@ return true ;
  
   return (
  
-       <div className="container mt-4">
+       <div className="container mb-3 ">
       <form onSubmit={handleRegister}>
       <div className="col-md-8">
         <div className="mb-3">

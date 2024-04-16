@@ -17,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoutes from './components/ProtectedRoutes'
 import UnAuth from './components/UnAuth'
 import UserContextProvider from './context/User'
+import SendCode from './pages/login/components/SendCode'
 import {
   createBrowserRouter,
   Route,
@@ -43,6 +44,10 @@ function App() {
     {
       path: "/Categories",
       element: <Categories/>,
+    },
+    {
+      path: "/SendCode",
+      element: <SendCode/>,
     },
     {
       path: "/Categories/:id",
