@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react';
 import axios from 'axios';
+import Loader from '../../../components/Loader';
 export default function Products() {
+  const [loading, setLoading] = useState(true);
+
     const {id} = useParams('id'); 
     console.log(id); 
     const [products,setProducts]= useState([]); 
@@ -12,6 +15,7 @@ export default function Products() {
       const {data} = await axios.get('https://ecommerce-node4-five.vercel.app/products?page=1&limit=10');
       console.log(data);
     setProducts(data.products);
+    setLoading(false);
    }
     useEffect(()=>{
         getProducts();
@@ -34,7 +38,12 @@ export default function Products() {
            console.log(data);
          }
          return (
+         
           <>
+          {loading ? (
+              
+              <Loader/> // Render Loader component while data is being fetched
+            ) : (
             <div className="container mt-4">
               <div className="row">
                 {products.map(product => (
@@ -61,7 +70,8 @@ export default function Products() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> 
+            )}
           </>
         );
       };

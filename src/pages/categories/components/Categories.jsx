@@ -4,13 +4,17 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Link } from 'react-router-dom';
+import Loader from '../../../components/Loader';
 function Categories() {
+  const [loading, setLoading] = useState(true);
+
   const [categories, setCategories] = useState([]);
 
   const getCategories = async () => {
     const { data } = await axios.get('https://ecommerce-node4-five.vercel.app/categories/active?limit=10');
     const response = await data.categories;
     setCategories(response);
+    setLoading(false)
   };
 
   useEffect(() => {
@@ -28,6 +32,10 @@ function Categories() {
 
   return (
     <>
+      {loading ? (
+              
+              <Loader/> // Render Loader component while data is being fetched
+            ) :(        
     <div className="container my-4 ">
     <Slider {...sliderSettings}>
       {categories.map(category => (
@@ -38,6 +46,7 @@ function Categories() {
       ))}
     </Slider>
     </div>
+            )}
     </>
   );
   
