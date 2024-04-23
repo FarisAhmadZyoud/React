@@ -37,24 +37,33 @@ export default function CategoryProducts() {
          }
   return (
     <>
-     { 
-      <div className="d-flex flex-wrap">
-      {products.map(product => (
-        <div className="product" key={product.id}>
-           <img
-            src={product.mainImage.secure_url}
-            alt={product.name}
-            className="img-fluid product-image"
-          />
-          <h3>{product.name}</h3>
-          <button onClick={() => addToCart(product._id)}>Add to cart</button>
-        </div>
-      ))}
-    </div>
-
-
-
-     }
-    </>
+    <div className="container mt-4">
+              <div className="row">
+                {products.map(product => (
+                  <div className="col-md-4 mb-4" key={product.id}>
+                    <div className="card h-100">
+                      <img
+                        src={product.mainImage.secure_url}
+                        alt={product.name}
+                        className="card-img-top"
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title">{product.name}</h5>
+                        <p className="card-text"> Price ${product.price}</p>
+                      </div>
+                      <div className="card-footer">
+                        <button
+                          className="btn btn-primary btn-block"
+                          onClick={() => addToCart(product._id)}
+                        >
+                          Add to cart
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
   )
 }

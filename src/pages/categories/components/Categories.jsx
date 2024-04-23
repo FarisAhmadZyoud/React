@@ -28,6 +28,7 @@ function Categories() {
 
   return (
     <>
+    <div className="container my-4 ">
     <Slider {...sliderSettings}>
       {categories.map(category => (
         <div key={category.id}>
@@ -36,6 +37,7 @@ function Categories() {
         </div>
       ))}
     </Slider>
+    </div>
     </>
   );
   
