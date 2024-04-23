@@ -10,11 +10,11 @@ import { useContext } from 'react';
 import { UserContext } from '../../../context/User';
 import { object, string } from 'yup';
 
-function Login() {
-  const {setUserToken} = useContext(UserContext); 
+function ForgotPasscode() {
   const [user, setUser] = useState({
     email: '',
     password: '',
+    code : '',
   });
   const navigate= useNavigate(); 
 
@@ -31,7 +31,7 @@ function Login() {
   };
 
 
-  const handleLogin = async (e) => {
+  const ResetPasswowrd = async (e) => {
     e.preventDefault();
     setLoader(true); 
   const validate= await validtaeData(); 
@@ -40,23 +40,22 @@ function Login() {
     console.log(user);
     
     try {
-      const { data } = await axios.post('https://ecommerce-node4-five.vercel.app/auth/signin', 
-      {email: user.email, password: user.password});
+      const { data } = await axios.patch('https://ecommerce-node4-five.vercel.app/auth/forgotPassword', 
+      {email: user.email, password: user.password , code: user.code});
       setUser(
        {
         email: '',
         password: '',
+        code : '',
        }
  
       ) 
      
 
          if(data.message === 'success') {
-          toast('Your account has been registered successfully')
-          localStorage.setItem('userToken', data.token); 
-          setUserToken(data.token);
+          toast('the password has been reseted successfully')
            
-          navigate('/');
+          navigate('/Login');
          }
     } catch (error) {
       if (error.response.status === 400){
@@ -83,6 +82,7 @@ function Login() {
   const loginSchema= object ({
     email:string().email('please enter Valid email'),
     password:string().min(8).max(16).required(),
+    code: string().required('Please enter the code'),
   });
  try {
 await loginSchema.validate(user,{abortEarly:false}); 
@@ -97,12 +97,7 @@ return true ;
  }
  
 }
-const handleForgotPassword = ()=>
-{
 
-navigate("/SendCode");
-
-}
  
   return (
     <>
@@ -111,7 +106,7 @@ navigate("/SendCode");
       <div className="row justify-content-center">
         <div className="col-md-6">
           <h2>Login</h2>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={ResetPasswowrd}>
             <div className="mb-3">
               <label className="form-label">Email</label>
               <input type="email" className="form-control" name="email" value={user.email} onChange={handleChange} />
@@ -121,15 +116,14 @@ navigate("/SendCode");
               <input type="password" className="form-control" name="password" value={user.password} onChange={handleChange} />
             </div>
             <div className="mb-3">
+              <label className="form-label">Code</label>
+              <input type="text" className="form-control" name="code" value={user.code} onChange={handleChange} />
+            </div>
             <button type="submit" className="btn btn-primary" disabled={loader}>
               {!loader ? 'Login' : 'Loading...'}
             </button> 
-            </div>
-            <div className="mb-3">
-            <button type="button" className="btn btn-primary" onClick={handleForgotPassword}>
-                Forgot Password?
-              </button>
-            </div>
+          
+            
           </form>
         </div>
       </div>
@@ -138,4 +132,4 @@ navigate("/SendCode");
   );
 }
 
-export default Login;
+export default ForgotPasscode;

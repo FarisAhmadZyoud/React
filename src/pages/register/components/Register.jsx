@@ -52,7 +52,7 @@ function Register() {
     formData.append('password', user.password);
 
     try {
-      const { data } = await axios.post('https://ecommerce-node4.vercel.app/auth/signup', formData);
+      const { data } = await axios.post('https://ecommerce-node4-five.vercel.app/auth/signup', formData);
          if(data.message === 'success') {
           toast('Your account has been registered successfully')
           navigate('/Login');

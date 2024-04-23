@@ -14,7 +14,6 @@ function SendCode() {
 
   const [user, setUser] = useState({
     email: '',
-    password: '',
   });
   const navigate= useNavigate(); 
 
@@ -30,56 +29,35 @@ function SendCode() {
     });
   };
 
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoader(true); 
-  const validate= await validtaeData(); 
-   console.log(validate); 
-   if (await validtaeData()) {
-    console.log(user);
-    
-    try {
-      const { data } = await axios.post('https://ecommerce-node4-five.vercel.app/auth/sendcode', 
-      {email: user.email});
-      setUser(
-       {
-        email: '',
-      
-       }
- 
-      ) 
-     
-
-         if(data.message === 'success') {
-          toast('the message has been sent successfully ')
-        //  localStorage.setItem('userToken', data.token); 
-          setUserToken(data.token);
-           
-          navigate('/');
-         }
-    } catch (error) {
-      if (error.response.status === 400){
-        console.log(error); 
-        toast.error('plz make sure of your data', {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          });
-       
+    const isValid = await validateData(); 
+    if (isValid) {
+      try {
+        const { data } = await axios.patch('https://ecommerce-node4-five.vercel.app/auth/sendcode', 
+          { email: user.email }
+        );
+        setUser({ email: '' });
+        if (data) {
+          toast('The message has been sent successfully');
+          // Assuming you have a setUserToken function to set the token in context
+        //  setUserToken(data.token); // Assuming token is returned in response
+          navigate('/ForgotPasscode');
+        } else {
+          // Handle case where message is not 'success'
+          toast.error('Server error: Message not sent');
+        }
+      } catch (error) {
+        console.error('Error sending message:', error);
+        toast.error('Error sending message. Please try again later.');
+      } finally {
+        setLoader(false);
       }
-    }finally {
-      setLoader(false);
     }
-  }
   };
 
-  const validtaeData= async()=>{
+  const validateData= async()=>{
   const loginSchema= object ({
     email:string().email('please enter Valid email'),
   });
@@ -110,9 +88,9 @@ return true ;
               <label className="form-label">Email</label>
               <input type="email" className="form-control" name="email" value={user.email} onChange={handleChange} />
             </div>
-            <button type="submit" className="btn btn-primary" >
-             send Code 
-            </button> 
+            <button type="submit" className="btn btn-primary" disabled={loader}>
+          {loader ? 'Loading...' : 'SendCode'}
+        </button>
           
           
             

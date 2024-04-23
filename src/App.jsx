@@ -18,6 +18,7 @@ import ProtectedRoutes from './components/ProtectedRoutes'
 import UnAuth from './components/UnAuth'
 import UserContextProvider from './context/User'
 import SendCode from './pages/login/components/SendCode'
+import ForgotPasscode from './pages/login/components/ForgotPasscode'
 import {
   createBrowserRouter,
   Route,
@@ -48,6 +49,10 @@ function App() {
     {
       path: "/SendCode",
       element: <SendCode/>,
+    },
+    {
+      path: "/ForgotPasscode",
+      element: <ForgotPasscode/>,
     },
     {
       path: "/Categories/:id",
