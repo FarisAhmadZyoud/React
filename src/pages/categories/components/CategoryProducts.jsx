@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Loader from '../../../components/Loader';
 import './ProductList.css'; // Import the CSS file
 import axios from 'axios';
@@ -58,13 +59,21 @@ export default function CategoryProducts() {
                           <h5 className="card-title">{product.name}</h5>
                           <p className="card-text"> Price ${product.price}</p>
                         </div>
-                        <div className="card-footer">
+                        <div className="card-footer d-flex flex-row justify-content-between">
                           <button
                             className="btn btn-primary btn-block"
                             onClick={() => addToCart(product._id)}
                           >
                             Add to cart
                           </button>
+                          <button
+                          className="btn btn-primary btn-block"
+                         { ...<Link to={`/ProductsDetails/${product._id}`}>  </Link>
+
+                        }
+                          >
+                          Details 
+                        </button>
                         </div>
                       </div>
                     </div>

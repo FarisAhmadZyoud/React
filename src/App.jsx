@@ -15,6 +15,7 @@ import Products from './pages/products/components/Products'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoutes from './components/ProtectedRoutes'
+import ProductsDetails from './pages/products/components/ProductsDetails'
 import UnAuth from './components/UnAuth'
 import UserContextProvider from './context/User'
 import SendCode from './pages/login/components/SendCode'
@@ -57,6 +58,10 @@ function App() {
     {
       path: "/Categories/:id",
       element: <CategoryProducts/>,
+    },
+    {
+      path: "/ProductsDetails/:id",
+      element: <ProductsDetails/>,
     },
     {
       path: "/Products",

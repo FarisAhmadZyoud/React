@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../../../components/Loader';
-export default function Products() {
+export default function ProductsDetails() {
   const [loading, setLoading] = useState(true);
 
     const {id} = useParams('id'); 
@@ -12,17 +11,17 @@ export default function Products() {
     const [products,setProducts]= useState([]); 
     const controller=new AbortController(); 
 
-   const getProducts = async ()=>{
-      const {data} = await axios.get('https://ecommerce-node4-five.vercel.app/products?page=1&limit=10');
-      console.log(data);
-    setProducts(data.products);
+   const getDetails = async ()=>{
+    const {data} = await axios.get(`https://ecommerce-node4-five.vercel.app/products/${id}`);
+    console.log(data); 
+    console.log("Faris Zyoud");
+
+    setProducts(data.product);
     setLoading(false);
    }
 
     useEffect(()=>{
-        getProducts();
-        return ()=>{
-        }
+        getDetails();
     },[])
          const addToCart = async (id)=>{
             console.log(id);
@@ -68,11 +67,7 @@ export default function Products() {
                         >
                           Add to cart
                         </button>
-                        <button className="btn btn-primary btn-block">
-                         <Link to={`/ProductsDetails/${product._id}`}>
-                                       Details
-                                     </Link>
-                                 </button>
+                       
                       </div>
                     </div>
                   </div>
