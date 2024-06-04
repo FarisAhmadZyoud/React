@@ -66,14 +66,12 @@ export default function CategoryProducts() {
                           >
                             Add to cart
                           </button>
-                          <button
-                          className="btn btn-primary btn-block"
-                         { ...<Link to={`/ProductsDetails/${product._id}`}>  </Link>
+                        
+                       <Link to={`/ProductsDetails/${product._id}`}>
+                                   <button className="btn btn-primary btn-block">   Details
+                                   </button>
 
-                        }
-                          >
-                          Details 
-                        </button>
+                                     </Link>
                         </div>
                       </div>
                     </div>
